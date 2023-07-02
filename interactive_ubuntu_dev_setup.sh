@@ -6,49 +6,8 @@ if [[ $(id -u) -ne 0 ]]; then
   exit 1
 fi
 
-# Function 1
-function installZSH() {
-  echo "Installing ZSH..."
-
-  # Install Zsh
-  apt install -y zsh
-
-  # Change the default shell to Zsh
-  chsh -s /usr/bin/zsh
-
-  # Print installation completion message
-  echo "Zsh has been installed successfully."
-}
-
-# Function 2
-function installTabby() {
-  echo "Installing Tabby..."
-  # Ask the user for the Tabby version
-  read -p "Enter the Tabby version to install (default: 1.0.197): " TABBY_VERSION
-  TABBY_VERSION=${TABBY_VERSION:-1.0.197}
-
-  # Download Tabby
-  # Tabby is not part of the official Ubuntu repositories, so we need to download and install it manually
-
-  # Download Tabby (change the URL if needed)
-  TABBYY_FILE="tabby-${TABBY_VERSION}-linux-x64.deb"
-  TABBYY_DOWNLOAD_URL="https://github.com/Eugeny/tabby/releases/download/v${TABBY_VERSION}/${TABBYY_FILE}"
-  wget "$TABBYY_DOWNLOAD_URL" -O /tmp/"$TABBYY_FILE"
-
-  # Install Tabby
-  dpkg -i /tmp/"$TABBYY_FILE"
-
-  # Clean up temporary files
-  rm /tmp/"$TABBYY_FILE"
-
-  # Print installation completion message
-  echo "Zsh and Tabby have been installed successfully."
-}
-
-# Interactive prompt to select functions
-# Interactive prompt to select functions
-# Interactive prompt to select functions
-# Global list of available functions
+source ./install-tabby.sh
+source ./install-zsh.sh
 
 # Global array to store selected functions
 declare -a selected_functions=()
@@ -79,7 +38,7 @@ function_prompt() {
   # Main loop
   while true; do
     clear
-    echo "What to you want to install? (use 'q' to navigate up, 'a' to navigate down, 'y' to toggle, press Enter to confirm)"
+    echo "What to you want to install? (use 'up' and 'down' to navigate, and 'left' or 'right' to toggle, press Enter to confirm)"
 
     display_checkboxes
 
