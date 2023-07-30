@@ -8,6 +8,7 @@ fi
 
 source ./install-tabby.sh
 source ./install-zsh.sh
+source ./install-nvm.sh
 
 # Global array to store selected functions
 declare -a selected_functions=()
@@ -15,7 +16,7 @@ declare -a selected_functions=()
 # Interactive prompt to select functions
 function_prompt() {
   local cursor=0
-  local options=("ZSH" "Tabby")
+  local options=("ZSH" "Tabby" "NVM")
 
   # Function to display checkboxes
   display_checkboxes() {
@@ -85,6 +86,9 @@ for index in "${selected_functions[@]}"; do
     ;;
   1)
     installTabby
+    ;;
+  2)
+    installNVM
     ;;
   esac
   sudo apt --fix-broken install
